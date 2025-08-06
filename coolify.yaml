@@ -1,0 +1,53 @@
+# Coolify Application Configuration
+# Save this as coolify.yaml in your repository root
+
+name: google-maps-scraper
+description: Apollo-style Google Maps business scraper with Playwright automation
+type: application
+buildPack: nodejs
+port: 3000
+
+environmentVariables:
+  NODE_ENV: production
+  PORT: 3000
+  API_KEY: ""  # Optional: Set this for API authentication
+  MAX_RESULTS: 100
+  BATCH_SIZE: 3
+  STEALTH_LEVEL: optimized
+  REQUESTS_PER_MINUTE: 60
+  DELAY_BETWEEN_REQUESTS: 1000
+  MAX_CONCURRENT_JOBS: 2
+  USE_PROXY: false
+  PROXY_LIST: ""
+  BROWSER: chromium
+  HEADLESS: true
+  CAPTCHA_API_KEY: ""
+  CAPTCHA_SERVICE: ""
+  DB_PATH: ./data/scraper.db
+  EMAIL_ENABLED: false
+  EMAIL_HOST: smtp.gmail.com
+  EMAIL_PORT: 587
+  EMAIL_USER: ""
+  EMAIL_PASS: ""
+  EMAIL_FROM: ""
+  EMAIL_TO: ""
+  LOG_LEVEL: info
+  DEBUG: false
+  TRUST_PROXY: false
+  SESSION_SECRET: "a5c622ec7213f8cf5e4e4ceae4af74655780fa8549e22008492e9c8c6f001213"
+
+volumes:
+  - hostPath: /app/data
+    containerPath: /app/data
+    description: Data directory for database and CSV files
+
+healthCheck:
+  path: /health
+  interval: 30
+  timeout: 10
+  retries: 3
+
+buildCommand: npm install && npx playwright install chromium
+startCommand: node server.js
+dockerfile: Dockerfile
+dockerCompose: docker-compose.yml

@@ -1,0 +1,188 @@
+{
+  "name": "Google Maps Scraper",
+  "description": "Apollo-style Google Maps business scraper with Playwright automation",
+  "type": "application",
+  "buildPack": "nodejs",
+  "port": 3000,
+  "environmentVariables": {
+    "NODE_ENV": {
+      "value": "production",
+      "description": "Node.js environment",
+      "required": false,
+      "default": "production"
+    },
+    "PORT": {
+      "value": "3000",
+      "description": "Server port (Coolify will override this)",
+      "required": false,
+      "default": "3000"
+    },
+    "API_KEY": {
+      "value": "",
+      "description": "API authentication key (optional - leave empty to disable)",
+      "required": false,
+      "default": ""
+    },
+    "MAX_RESULTS": {
+      "value": "100",
+      "description": "Maximum number of results to scrape per job",
+      "required": false,
+      "default": "100"
+    },
+    "BATCH_SIZE": {
+      "value": "3",
+      "description": "Number of results to process in each batch (1-5 recommended)",
+      "required": false,
+      "default": "3"
+    },
+    "STEALTH_LEVEL": {
+      "value": "optimized",
+      "description": "Stealth level: 'optimized' (faster) or 'high-stealth' (more anti-detection)",
+      "required": false,
+      "default": "optimized"
+    },
+    "REQUESTS_PER_MINUTE": {
+      "value": "60",
+      "description": "Maximum requests per minute",
+      "required": false,
+      "default": "60"
+    },
+    "DELAY_BETWEEN_REQUESTS": {
+      "value": "1000",
+      "description": "Delay between requests in milliseconds",
+      "required": false,
+      "default": "1000"
+    },
+    "MAX_CONCURRENT_JOBS": {
+      "value": "2",
+      "description": "Maximum concurrent scraping jobs",
+      "required": false,
+      "default": "2"
+    },
+    "USE_PROXY": {
+      "value": "false",
+      "description": "Enable proxy usage",
+      "required": false,
+      "default": "false"
+    },
+    "PROXY_LIST": {
+      "value": "",
+      "description": "Comma-separated list of proxy URLs",
+      "required": false,
+      "default": ""
+    },
+    "BROWSER": {
+      "value": "chromium",
+      "description": "Browser to use: 'chromium', 'firefox', 'webkit'",
+      "required": false,
+      "default": "chromium"
+    },
+    "HEADLESS": {
+      "value": "true",
+      "description": "Run browser in headless mode",
+      "required": false,
+      "default": "true"
+    },
+    "CAPTCHA_API_KEY": {
+      "value": "",
+      "description": "CAPTCHA solving service API key (optional)",
+      "required": false,
+      "default": ""
+    },
+    "CAPTCHA_SERVICE": {
+      "value": "",
+      "description": "CAPTCHA service: '2captcha', 'anticaptcha', 'capmonster'",
+      "required": false,
+      "default": ""
+    },
+    "DB_PATH": {
+      "value": "./data/scraper.db",
+      "description": "SQLite database path",
+      "required": false,
+      "default": "./data/scraper.db"
+    },
+    "EMAIL_ENABLED": {
+      "value": "false",
+      "description": "Enable email notifications",
+      "required": false,
+      "default": "false"
+    },
+    "EMAIL_HOST": {
+      "value": "smtp.gmail.com",
+      "description": "SMTP server host",
+      "required": false,
+      "default": "smtp.gmail.com"
+    },
+    "EMAIL_PORT": {
+      "value": "587",
+      "description": "SMTP server port",
+      "required": false,
+      "default": "587"
+    },
+    "EMAIL_USER": {
+      "value": "",
+      "description": "SMTP username",
+      "required": false,
+      "default": ""
+    },
+    "EMAIL_PASS": {
+      "value": "",
+      "description": "SMTP password",
+      "required": false,
+      "default": ""
+    },
+    "EMAIL_FROM": {
+      "value": "",
+      "description": "From email address",
+      "required": false,
+      "default": ""
+    },
+    "EMAIL_TO": {
+      "value": "",
+      "description": "To email address",
+      "required": false,
+      "default": ""
+    },
+    "LOG_LEVEL": {
+      "value": "info",
+      "description": "Log level: 'error', 'warn', 'info', 'debug'",
+      "required": false,
+      "default": "info"
+    },
+    "DEBUG": {
+      "value": "false",
+      "description": "Enable detailed logging for debugging",
+      "required": false,
+      "default": "false"
+    },
+    "TRUST_PROXY": {
+      "value": "false",
+      "description": "Trust proxy headers (set to true if behind reverse proxy)",
+      "required": false,
+      "default": "false"
+    },
+    "SESSION_SECRET": {
+      "value": "",
+      "description": "Session secret for secure cookies (auto-generated if empty)",
+      "required": false,
+      "default": ""
+    }
+  },
+  "volumes": [
+    {
+      "hostPath": "/app/data",
+      "containerPath": "/app/data",
+      "description": "Data directory for database and CSV files"
+    }
+  ],
+  "healthCheck": {
+    "path": "/health",
+    "interval": 30,
+    "timeout": 10,
+    "retries": 3
+  },
+  "buildCommand": "npm install && npx playwright install chromium",
+  "startCommand": "node server.js",
+  "dockerfile": "Dockerfile",
+  "dockerCompose": "docker-compose.yml"
+} 

@@ -1,0 +1,58 @@
+version: '3.8'
+services:
+  scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    environment:
+      # Server Configuration
+      - NODE_ENV=production
+      - PORT=3000
+      - API_KEY=
+      
+      # Scraping Configuration
+      - MAX_RESULTS=100
+      - BATCH_SIZE=3
+      - STEALTH_LEVEL=optimized
+      
+      # Rate Limiting & Performance
+      - REQUESTS_PER_MINUTE=60
+      - DELAY_BETWEEN_REQUESTS=1000
+      - MAX_CONCURRENT_JOBS=2
+      
+      # Proxy Configuration
+      - USE_PROXY=false
+      - PROXY_LIST=
+      
+      # Browser Configuration
+      - BROWSER=chromium
+      - HEADLESS=true
+      
+      # CAPTCHA Solving (Optional)
+      - CAPTCHA_API_KEY=
+      - CAPTCHA_SERVICE=
+      
+      # Database & Storage
+      - DB_PATH=./data/scraper.db
+      
+      # Email Notifications (Optional)
+      - EMAIL_ENABLED=false
+      - EMAIL_HOST=smtp.gmail.com
+      - EMAIL_PORT=587
+      - EMAIL_USER=
+      - EMAIL_PASS=
+      - EMAIL_FROM=
+      - EMAIL_TO=
+      
+      # Logging & Debugging
+      - LOG_LEVEL=info
+      - DEBUG=false
+      
+      # Security & Privacy
+      - TRUST_PROXY=false
+      - SESSION_SECRET=your-super-secret-session-key-change-this 

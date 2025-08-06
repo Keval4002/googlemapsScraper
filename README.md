@@ -16,8 +16,8 @@ A production-ready, Playwright-powered Google Maps business scraper with Apollo-
 ## Quick Start
 
 ```bash
-git clone <repo-url>
-cd google-maps-scraper
+git clone https://github.com/Keval4002/googlemapsScraper.git
+cd googlemapsScraper
 cp .env.example .env
 npm install
 npm start
@@ -193,4 +193,4 @@ If you're experiencing API issues in Coolify while the webapp works:
    - Use browser dev tools to check network requests
 
 ## License
-MIT 
+MIT
